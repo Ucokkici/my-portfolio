@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FiMail,
   FiPhone,
@@ -23,6 +23,20 @@ export default function Contact() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  // Track mouse position for interactive background
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,13 +57,11 @@ export default function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitSuccess(true);
       setFormData({ name: "", email: "", message: "" });
-
       // Reset success message after 3 seconds
       setTimeout(() => {
         setSubmitSuccess(false);
@@ -100,12 +112,99 @@ export default function Contact() {
     },
   ];
 
+  // Background elements
+  const bgElements = [
+    {
+      size: 300,
+      top: "10%",
+      left: "5%",
+      delay: 0,
+      duration: 20,
+      color: "from-blue-500/10 to-purple-500/10",
+    },
+    {
+      size: 200,
+      top: "60%",
+      left: "80%",
+      delay: 2,
+      duration: 25,
+      color: "from-purple-500/10 to-pink-500/10",
+    },
+    {
+      size: 250,
+      top: "70%",
+      left: "10%",
+      delay: 1,
+      duration: 30,
+      color: "from-green-500/10 to-teal-500/10",
+    },
+    {
+      size: 180,
+      top: "30%",
+      left: "70%",
+      delay: 3,
+      duration: 22,
+      color: "from-yellow-500/10 to-red-500/10",
+    },
+    {
+      size: 220,
+      top: "50%",
+      left: "40%",
+      delay: 4,
+      duration: 28,
+      color: "from-indigo-500/10 to-blue-500/10",
+    },
+  ];
+
   return (
     <section
       id="contact"
-      className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-gray-200 py-20 px-4 sm:px-8"
+      className="relative min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-gray-200 py-20 px-4 sm:px-8 overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto">
+      {/* Interactive background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {bgElements.map((el, i) => (
+          <motion.div
+            key={i}
+            className={`absolute rounded-full bg-gradient-to-r ${el.color} blur-xl`}
+            style={{
+              width: el.size,
+              height: el.size,
+              top: el.top,
+              left: el.left,
+            }}
+            animate={{
+              x: [0, 30, -20, 0],
+              y: [0, -20, 30, 0],
+              scale: [1, 1.1, 0.9, 1],
+            }}
+            transition={{
+              duration: el.duration,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: el.delay,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+
+        {/* Mouse-following light effect */}
+        <motion.div
+          className="absolute rounded-full bg-gradient-to-r from-blue-400/20 to-purple-400/20 blur-3xl"
+          style={{
+            width: 300,
+            height: 300,
+            x: mousePosition.x - 150,
+            y: mousePosition.y - 150,
+          }}
+          transition={{ type: "tween", ease: "easeOut", duration: 0.5 }}
+        />
+
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDUiPjxwYXRoIGQ9Ik0wIDBoNDBNNDAgMEg0ME00MCA0MEgweiIvPjwvZz48L2c+PC9zdmc+')] opacity-20 dark:opacity-10"></div>
+      </div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -123,7 +222,6 @@ export default function Contact() {
           >
             Get In Touch
           </motion.h2>
-
           <motion.div
             className="w-32 h-1.5 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full mb-6"
             initial={{ width: 0 }}
@@ -131,7 +229,6 @@ export default function Contact() {
             transition={{ duration: 1, delay: 0.3 }}
             viewport={{ once: true }}
           />
-
           <motion.p
             className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
             initial={{ opacity: 0 }}
@@ -155,12 +252,11 @@ export default function Contact() {
             viewport={{ once: true }}
           >
             <motion.div
-              className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 h-full"
+              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl p-8 h-full border border-gray-200/50 dark:border-gray-700/50"
               whileHover={{ y: -10 }}
               transition={{ duration: 0.3 }}
             >
               <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
-
               {/* Success Message */}
               {submitSuccess && (
                 <motion.div
@@ -173,7 +269,6 @@ export default function Contact() {
                   Thank you for your message! I'll get back to you soon.
                 </motion.div>
               )}
-
               {/* Error Message */}
               {submitError && (
                 <motion.div
@@ -186,7 +281,6 @@ export default function Contact() {
                   Something went wrong. Please try again later.
                 </motion.div>
               )}
-
               <form onSubmit={handleSubmit}>
                 <motion.div
                   variants={containerVariants}
@@ -226,7 +320,6 @@ export default function Contact() {
                       />
                     </motion.div>
                   </motion.div>
-
                   {/* Email Input */}
                   <motion.div variants={itemVariants} className="mb-6">
                     <label
@@ -260,7 +353,6 @@ export default function Contact() {
                       />
                     </motion.div>
                   </motion.div>
-
                   {/* Message Textarea */}
                   <motion.div variants={itemVariants} className="mb-6">
                     <label
@@ -294,7 +386,6 @@ export default function Contact() {
                       ></motion.textarea>
                     </motion.div>
                   </motion.div>
-
                   {/* Submit Button */}
                   <motion.div variants={itemVariants}>
                     <motion.button
@@ -353,12 +444,11 @@ export default function Contact() {
             viewport={{ once: true }}
           >
             <motion.div
-              className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 h-full"
+              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-xl p-8 h-full border border-gray-200/50 dark:border-gray-700/50"
               whileHover={{ y: -10 }}
               transition={{ duration: 0.3 }}
             >
               <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-
               <motion.div
                 variants={containerVariants}
                 initial="hidden"
@@ -378,7 +468,6 @@ export default function Contact() {
                     akbar15kece@gmail.com
                   </motion.a>
                 </motion.div>
-
                 {/* Phone */}
                 <motion.div variants={itemVariants} className="mb-8">
                   <h4 className="text-lg font-semibold mb-4 flex items-center">
@@ -393,7 +482,6 @@ export default function Contact() {
                     +6285173350163
                   </motion.a>
                 </motion.div>
-
                 {/* Location */}
                 <motion.div variants={itemVariants} className="mb-8">
                   <h4 className="text-lg font-semibold mb-4 flex items-center">
@@ -407,7 +495,6 @@ export default function Contact() {
                     Indonesia, DKI Jakarta, Jakarta Barat
                   </motion.p>
                 </motion.div>
-
                 {/* Social Media */}
                 <motion.div variants={itemVariants}>
                   <h4 className="text-lg font-semibold mb-4 flex items-center">

@@ -1,22 +1,17 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [cursorVariant, setCursorVariant] = useState("default");
-
   useEffect(() => {
     const mouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
-
     window.addEventListener("mousemove", mouseMove);
-
     return () => {
       window.removeEventListener("mousemove", mouseMove);
     };
   }, []);
-
   // Custom cursor variants
   const cursorVariants = {
     default: {
@@ -41,12 +36,10 @@ export default function Hero() {
       mixBlendMode: "normal",
     },
   };
-
   const textEnter = () => setCursorVariant("text");
   const textLeave = () => setCursorVariant("default");
   const buttonEnter = () => setCursorVariant("button");
   const buttonLeave = () => setCursorVariant("default");
-
   // Floating background elements
   const floatingElements = [
     { id: 1, x: "10%", y: "15%", size: 120, delay: 0, color: "bg-blue-400" },
@@ -56,7 +49,6 @@ export default function Hero() {
     { id: 5, x: "50%", y: "10%", size: 40, delay: 2, color: "bg-blue-300" },
     { id: 6, x: "90%", y: "60%", size: 70, delay: 2.5, color: "bg-purple-300" },
   ];
-
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -67,7 +59,6 @@ export default function Hero() {
       },
     },
   };
-
   const itemVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
@@ -76,7 +67,6 @@ export default function Hero() {
       transition: { duration: 0.8, ease: "easeOut" },
     },
   };
-
   const techStack = [
     { name: "React", color: "from-blue-400 to-blue-600" },
     { name: "TypeScript", color: "from-blue-500 to-indigo-600" },
@@ -85,19 +75,17 @@ export default function Hero() {
     { name: "Next.js", color: "from-gray-600 to-gray-800" },
     { name: "Node.js", color: "from-green-400 to-green-600" },
   ];
-
   return (
     <>
-      {/* Custom cursor */}
+      {/* Custom cursor - hidden on mobile */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-50 hidden lg:block border-2 border-white/30"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-50 hidden md:block border-2 border-white/30"
         variants={cursorVariants}
         animate={cursorVariant}
         transition={{ type: "spring", damping: 25, stiffness: 400 }}
       />
-
       <section
-        className="hero min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white"
+        className="hero min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white px-4 sm:px-6"
         id="hero"
       >
         {/* Animated gradient overlay */}
@@ -109,7 +97,6 @@ export default function Hero() {
           transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
           style={{ backgroundSize: "200% 200%" }}
         />
-
         {/* Floating background elements */}
         {floatingElements.map((element) => (
           <motion.div
@@ -134,18 +121,17 @@ export default function Hero() {
             }}
           />
         ))}
-
         {/* Main content */}
         <motion.div
-          className="container mx-auto px-6 py-20 z-10 max-w-7xl"
+          className="container mx-auto py-16 sm:py-20 z-10 max-w-7xl"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
             {/* Text content */}
             <motion.div
-              className="lg:w-1/2 text-center lg:text-left"
+              className="lg:w-1/2 text-center lg:text-left w-full"
               variants={itemVariants}
             >
               {/* Greeting */}
@@ -159,10 +145,9 @@ export default function Hero() {
                   👋 Hello, I'm
                 </span>
               </motion.div>
-
-              {/* Main title */}
+              {/* Main title - responsive font size */}
               <motion.h1
-                className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight"
                 onMouseEnter={textEnter}
                 onMouseLeave={textLeave}
                 initial={{ opacity: 0, y: 30 }}
@@ -173,10 +158,9 @@ export default function Hero() {
                   Ahmad Akbar
                 </span>
               </motion.h1>
-
-              {/* Animated role descriptions */}
+              {/* Animated role descriptions - responsive font size */}
               <motion.div
-                className="text-xl md:text-3xl mb-8 font-light text-gray-200"
+                className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-6 sm:mb-8 font-light text-gray-200"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6 }}
@@ -203,10 +187,9 @@ export default function Hero() {
                   </motion.span>
                 </div>
               </motion.div>
-
-              {/* Description */}
+              {/* Description - responsive padding and margin */}
               <motion.p
-                className="text-lg text-gray-300 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed"
+                className="text-base sm:text-lg text-gray-300 mb-6 sm:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1 }}
@@ -217,10 +200,9 @@ export default function Hero() {
                 user-friendly web experiences with modern technologies and
                 creative animations.
               </motion.p>
-
-              {/* Tech stack badges */}
+              {/* Tech stack badges - responsive layout */}
               <motion.div
-                className="flex flex-wrap gap-3 mb-12 justify-center lg:justify-start"
+                className="flex flex-wrap gap-2 sm:gap-3 mb-8 sm:mb-12 justify-center lg:justify-start"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.2 }}
@@ -228,7 +210,7 @@ export default function Hero() {
                 {techStack.map((tech, index) => (
                   <motion.span
                     key={tech.name}
-                    className={`px-4 py-2 bg-gradient-to-r ${tech.color} bg-opacity-20 rounded-full text-sm font-medium backdrop-blur-sm border border-white/10 shadow-lg`}
+                    className={`px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r ${tech.color} bg-opacity-20 rounded-full text-xs sm:text-sm font-medium backdrop-blur-sm border border-white/10 shadow-lg`}
                     initial={{ opacity: 0, scale: 0.8, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ delay: 1.4 + index * 0.1, duration: 0.5 }}
@@ -243,10 +225,9 @@ export default function Hero() {
                   </motion.span>
                 ))}
               </motion.div>
-
-              {/* Action buttons */}
+              {/* Action buttons - responsive size and layout */}
               <motion.div
-                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.6 }}
@@ -257,12 +238,12 @@ export default function Hero() {
                   onMouseLeave={buttonLeave}
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="group bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-full font-semibold shadow-2xl flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-blue-500/25"
+                  className="group bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold shadow-2xl flex items-center justify-center gap-2 sm:gap-3 transition-all duration-300 hover:shadow-blue-500/25 text-sm sm:text-base"
                 >
                   <span>View My Work</span>
                   <motion.svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 group-hover:translate-x-1 transition-transform"
+                    className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -273,19 +254,18 @@ export default function Hero() {
                     />
                   </motion.svg>
                 </motion.a>
-
                 <motion.a
                   href="#contact"
                   onMouseEnter={buttonEnter}
                   onMouseLeave={buttonLeave}
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="group border-2 border-white/30 text-white px-8 py-4 rounded-full font-semibold flex items-center justify-center gap-3 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
+                  className="group border-2 border-white/30 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold flex items-center justify-center gap-2 sm:gap-3 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 text-sm sm:text-base"
                 >
                   <span>Contact Me</span>
                   <motion.svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 group-hover:-translate-y-1 transition-transform"
+                    className="h-4 w-4 sm:h-5 sm:w-5 group-hover:-translate-y-1 transition-transform"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -295,10 +275,9 @@ export default function Hero() {
                 </motion.a>
               </motion.div>
             </motion.div>
-
-            {/* Avatar/Image section */}
+            {/* Avatar/Image section - responsive size and positioning */}
             <motion.div
-              className="lg:w-1/2 flex justify-center"
+              className="lg:w-1/2 flex justify-center mt-8 lg:mt-0 w-full"
               variants={itemVariants}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -318,16 +297,15 @@ export default function Hero() {
                     ease: "easeInOut",
                   }}
                 />
-
-                {/* Main avatar container */}
+                {/* Main avatar container - responsive size */}
                 <motion.div
-                  className="relative w-72 h-72 md:w-96 md:h-96 rounded-full bg-gradient-to-br from-blue-500 via-purple-600 to-indigo-700 p-2 shadow-2xl"
+                  className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-96 xl:h-96 rounded-full bg-gradient-to-br from-blue-500 via-purple-600 to-indigo-700 p-2 shadow-2xl"
                   whileHover={{ scale: 1.05, rotate: 2 }}
                   transition={{ duration: 0.3 }}
                 >
                   <div className="w-full h-full rounded-full bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center overflow-hidden border-4 border-white/20">
                     <motion.div
-                      className="text-8xl md:text-9xl"
+                      className="w-full h-full flex items-center justify-center"
                       animate={{
                         rotate: [0, 5, -5, 0],
                       }}
@@ -337,13 +315,17 @@ export default function Hero() {
                         ease: "easeInOut",
                       }}
                     >
-                      👨‍💻
+                      {/* Profile image */}
+                      <img
+                        src="/akbar.jpg"
+                        alt="Foto Akbar"
+                        className="w-full h-full object-cover"
+                      />
                     </motion.div>
                   </div>
-
-                  {/* Floating achievement badges */}
+                  {/* Floating achievement badges - responsive size */}
                   <motion.div
-                    className="absolute -top-4 -right-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white w-20 h-20 rounded-full flex flex-col items-center justify-center font-bold shadow-2xl"
+                    className="absolute -top-3 sm:-top-4 -right-3 sm:-right-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white w-16 h-16 sm:w-20 sm:h-20 rounded-full flex flex-col items-center justify-center font-bold shadow-2xl"
                     animate={{
                       y: [0, -15, 0],
                       rotate: [0, 10, 0],
@@ -354,12 +336,11 @@ export default function Hero() {
                       ease: "easeInOut",
                     }}
                   >
-                    <span className="text-2xl">5+</span>
+                    <span className="text-xl sm:text-2xl">5+</span>
                     <span className="text-xs">Years</span>
                   </motion.div>
-
                   <motion.div
-                    className="absolute -bottom-4 -left-4 bg-gradient-to-r from-green-400 to-emerald-500 text-white w-20 h-20 rounded-full flex flex-col items-center justify-center font-bold shadow-2xl"
+                    className="absolute -bottom-3 sm:-bottom-4 -left-3 sm:-left-4 bg-gradient-to-r from-green-400 to-emerald-500 text-white w-16 h-16 sm:w-20 sm:h-20 rounded-full flex flex-col items-center justify-center font-bold shadow-2xl"
                     animate={{
                       y: [0, -15, 0],
                       rotate: [0, -10, 0],
@@ -371,13 +352,12 @@ export default function Hero() {
                       ease: "easeInOut",
                     }}
                   >
-                    <span className="text-2xl">50+</span>
+                    <span className="text-xl sm:text-2xl">50+</span>
                     <span className="text-xs">Projects</span>
                   </motion.div>
-
-                  {/* Orbiting elements */}
+                  {/* Orbiting elements - hidden on small screens */}
                   <motion.div
-                    className="absolute top-1/2 left-1/2 w-6 h-6 bg-blue-400 rounded-full -translate-x-1/2 -translate-y-1/2 shadow-lg"
+                    className="absolute top-1/2 left-1/2 w-4 h-4 sm:w-6 sm:h-6 bg-blue-400 rounded-full -translate-x-1/2 -translate-y-1/2 shadow-lg hidden sm:block"
                     animate={{
                       rotate: 360,
                     }}
@@ -390,9 +370,8 @@ export default function Hero() {
                       transformOrigin: "0 120px",
                     }}
                   />
-
                   <motion.div
-                    className="absolute top-1/2 left-1/2 w-4 h-4 bg-purple-400 rounded-full -translate-x-1/2 -translate-y-1/2 shadow-lg"
+                    className="absolute top-1/2 left-1/2 w-3 h-3 sm:w-4 sm:h-4 bg-purple-400 rounded-full -translate-x-1/2 -translate-y-1/2 shadow-lg hidden sm:block"
                     animate={{
                       rotate: -360,
                     }}
@@ -410,10 +389,9 @@ export default function Hero() {
             </motion.div>
           </div>
         </motion.div>
-
-        {/* Scroll indicator */}
+        {/* Scroll indicator - responsive positioning and size */}
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
+          className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-20"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2, duration: 0.8 }}
@@ -429,7 +407,7 @@ export default function Hero() {
             whileTap={{ scale: 0.9 }}
           >
             <motion.div
-              className="w-8 h-14 rounded-full border-2 border-white/50 flex justify-center p-2 backdrop-blur-sm group-hover:border-white transition-colors"
+              className="w-6 h-12 sm:w-8 sm:h-14 rounded-full border-2 border-white/50 flex justify-center p-1.5 sm:p-2 backdrop-blur-sm group-hover:border-white transition-colors"
               animate={{ y: [0, 8, 0] }}
               transition={{
                 duration: 2,
@@ -438,7 +416,7 @@ export default function Hero() {
               }}
             >
               <motion.div
-                className="w-2 h-2 bg-white rounded-full"
+                className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full"
                 animate={{ y: [0, 12, 0] }}
                 transition={{
                   duration: 2,
@@ -447,15 +425,14 @@ export default function Hero() {
                 }}
               />
             </motion.div>
-            <p className="text-white/70 text-sm mt-2 text-center group-hover:text-white transition-colors">
+            <p className="text-white/70 text-xs sm:text-sm mt-2 text-center group-hover:text-white transition-colors">
               Scroll Down
             </p>
           </motion.div>
         </motion.div>
-
-        {/* Decorative corner elements */}
-        <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-transparent rounded-br-full" />
-        <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-purple-400/20 to-transparent rounded-tl-full" />
+        {/* Decorative corner elements - responsive size */}
+        <div className="absolute top-0 left-0 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-blue-400/20 to-transparent rounded-br-full" />
+        <div className="absolute bottom-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-tl from-purple-400/20 to-transparent rounded-tl-full" />
       </section>
     </>
   );
