@@ -336,8 +336,8 @@ export default function Hero() {
                       ease: "easeInOut",
                     }}
                   >
-                    <span className="text-xl sm:text-2xl">5+</span>
-                    <span className="text-xs">Years</span>
+                    <span className="text-xl sm:text-2xl">Ready</span>
+                    <span className="text-xs">Work</span>
                   </motion.div>
                   <motion.div
                     className="absolute -bottom-3 sm:-bottom-4 -left-3 sm:-left-4 bg-gradient-to-r from-green-400 to-emerald-500 text-white w-16 h-16 sm:w-20 sm:h-20 rounded-full flex flex-col items-center justify-center font-bold shadow-2xl"
@@ -352,8 +352,8 @@ export default function Hero() {
                       ease: "easeInOut",
                     }}
                   >
-                    <span className="text-xl sm:text-2xl">50+</span>
-                    <span className="text-xs">Projects</span>
+                    <span className="text-xl sm:text-2xl">Fresh</span>
+                    <span className="text-xs">Graduate</span>
                   </motion.div>
                   {/* Orbiting elements - hidden on small screens */}
                   <motion.div
