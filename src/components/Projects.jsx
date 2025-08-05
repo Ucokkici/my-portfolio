@@ -349,7 +349,7 @@ const Projects = () => {
           viewport={{ once: true }}
         >
           <motion.a
-            href="https://github.com/yourusername"
+            href="https://github.com/Ucokkici"
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-3 px-10 py-4 border-2 border-transparent bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl font-semibold text-lg shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
