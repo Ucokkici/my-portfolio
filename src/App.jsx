@@ -13,12 +13,11 @@ function App() {
         {/* Tambahkan padding-top untuk menghindari konten tertutup Navbar */}
         {/* Hero section di luar container agar full width */}
         <Hero />
+        {/* About section di luar container agar menyatu dengan background */}
+        <About />
         {/* Section lainnya tetap dalam container */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <About />
-          <Projects />
-          <Contact />
-        </div>
+        <Projects />
+        <Contact />
       </main>
     </div>
   );
