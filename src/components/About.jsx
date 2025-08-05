@@ -332,9 +332,11 @@ const About = () => {
                 whileHover={{ scale: 1.05, rotate: 5 }}
                 transition={{ duration: 0.4 }}
               >
-                <div className="absolute inset-2 rounded-full bg-gray-900/30 backdrop-blur-sm flex items-center justify-center">
-                  <div className="text-6xl sm:text-8xl">👨‍💻</div>
-                </div>
+                <img
+                  src="/akbar.jpg"
+                  alt="Foto Akbar"
+                  className="w-full h-full object-cover"
+                />
               </motion.div>
 
               <motion.h3
