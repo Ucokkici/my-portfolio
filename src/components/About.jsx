@@ -328,14 +328,113 @@ const About = () => {
             >
               {/* Profile Image */}
               <motion.div
-                className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500 mx-auto mb-6 sm:mb-8 overflow-hidden shadow-2xl"
-                whileHover={{ scale: 1.05, rotate: 5 }}
-                transition={{ duration: 0.4 }}
+                className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 mx-auto mb-6 sm:mb-8"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                whileHover={{
+                  scale: 1.05,
+                  rotate: 5,
+                  transition: { duration: 0.4 },
+                }}
               >
-                <img
-                  src="/akbar.jpg"
-                  alt="Foto Akbar"
-                  className="w-full h-full object-cover"
+                {/* Outer glow ring */}
+                <motion.div
+                  className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500 opacity-70"
+                  animate={{
+                    scale: [1, 1.05, 1],
+                    opacity: [0.7, 0.9, 0.7],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+
+                {/* Middle ring with animated gradient */}
+                <motion.div
+                  className="absolute inset-2 rounded-full bg-gradient-to-br from-purple-400 via-pink-400 to-blue-400 opacity-80"
+                  animate={{
+                    background: [
+                      "linear-gradient(to bottom right, #a78bfa, #f472b6, #60a5fa)",
+                      "linear-gradient(to bottom right, #c084fc, #f9a8d4, #93c5fd)",
+                      "linear-gradient(to bottom right, #a78bfa, #f472b6, #60a5fa)",
+                    ],
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+
+                {/* Inner container with backdrop blur */}
+                <div className="absolute inset-4 rounded-full bg-gray-900/40 backdrop-blur-md flex items-center justify-center overflow-hidden shadow-inner">
+                  {/* Animated particles */}
+                  <div className="absolute inset-0">
+                    {[...Array(8)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className="absolute w-1 h-1 bg-white rounded-full"
+                        style={{
+                          top: `${Math.random() * 100}%`,
+                          left: `${Math.random() * 100}%`,
+                        }}
+                        animate={{
+                          opacity: [0, 1, 0],
+                          scale: [0, 1, 0],
+                        }}
+                        transition={{
+                          duration: 2 + Math.random() * 3,
+                          repeat: Infinity,
+                          delay: Math.random() * 2,
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Profile image with subtle animation */}
+                  <motion.img
+                    src="/akbar.jpg"
+                    alt="Foto Akbar"
+                    className="w-full h-full object-cover rounded-full"
+                    whileHover={{
+                      scale: 1.02,
+                      transition: { duration: 0.3 },
+                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1, delay: 0.5 }}
+                  />
+                </div>
+
+                {/* Floating elements */}
+                <motion.div
+                  className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 shadow-lg"
+                  animate={{
+                    y: [0, -10, 0],
+                    rotate: [0, 10, 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+
+                <motion.div
+                  className="absolute -bottom-2 -left-2 w-6 h-6 rounded-full bg-gradient-to-br from-green-400 to-teal-500 shadow-lg"
+                  animate={{
+                    y: [0, -8, 0],
+                    rotate: [0, -15, 0],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1,
+                  }}
                 />
               </motion.div>
 
