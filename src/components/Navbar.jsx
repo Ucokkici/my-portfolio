@@ -10,24 +10,8 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState("hero");
 
   // Initialize dark mode from localStorage or system preference
-  useEffect(() => {
-    const savedDarkMode = localStorage.getItem("darkMode");
-    if (savedDarkMode !== null) {
-      setIsDark(JSON.parse(savedDarkMode));
-    } else {
-      // Default to system preference if no saved preference
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      setIsDark(prefersDark);
-    }
-  }, []);
 
   // Apply dark mode class and save preference
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDark);
-    localStorage.setItem("darkMode", JSON.stringify(isDark));
-  }, [isDark]);
 
   // Handle scroll effect
   useEffect(() => {
@@ -54,10 +38,6 @@ const Navbar = () => {
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
-  };
-
-  const toggleDarkMode = () => {
-    setIsDark(!isDark);
   };
 
   const navLinks = [
@@ -155,53 +135,6 @@ const Navbar = () => {
                 </li>
               ))}
             </Scrollspy>
-          </div>
-
-          {/* Dark Mode Toggle & Mobile Menu Button */}
-          <div className="flex items-center gap-4">
-            <motion.button
-              onClick={toggleDarkMode}
-              className="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors relative overflow-hidden"
-              whileHover={{
-                scale: 1.1,
-                rotate: 15,
-              }}
-              whileTap={{ scale: 0.9 }}
-              animate={{ rotate: isDark ? 360 : 0 }}
-              transition={{ duration: 0.5 }}
-              aria-label="Toggle dark mode"
-            >
-              <motion.div
-                className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-0"
-                whileHover={{ opacity: 0.2 }}
-                transition={{ duration: 0.3 }}
-              />
-              {isDark ? (
-                <FiSun className="text-xl text-yellow-400 relative z-10" />
-              ) : (
-                <FiMoon className="text-xl text-indigo-600 relative z-10" />
-              )}
-            </motion.button>
-
-            {/* Mobile Menu Button */}
-            <motion.button
-              className="md:hidden p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors relative overflow-hidden"
-              onClick={toggleMobileMenu}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              aria-label="Toggle mobile menu"
-            >
-              <motion.div
-                className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 opacity-0"
-                whileHover={{ opacity: 0.2 }}
-                transition={{ duration: 0.3 }}
-              />
-              {mobileMenuOpen ? (
-                <FiX className="text-xl relative z-10" />
-              ) : (
-                <FiMenu className="text-xl relative z-10" />
-              )}
-            </motion.button>
           </div>
         </div>
 
