@@ -365,7 +365,7 @@ const About = () => {
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
                     <img
-                      src="/akbar.jpg"
+                      src="/foto diri akbar.jpeg"
                       alt="Ahmad Akbar"
                       className="w-full h-full object-cover"
                     />
@@ -556,8 +556,8 @@ const About = () => {
                           ? "text-blue-300"
                           : "text-blue-600"
                         : darkMode
-                        ? "text-gray-400"
-                        : "text-gray-500"
+                          ? "text-gray-400"
+                          : "text-gray-500"
                     }`}
                     onClick={() => setActiveTab(tab.key)}
                     whileHover={{ scale: 1.05 }}
@@ -599,8 +599,8 @@ const About = () => {
                                     ? "bg-blue-600 text-white"
                                     : "bg-blue-500 text-white"
                                   : darkMode
-                                  ? "bg-gray-700 text-gray-300"
-                                  : "bg-gray-200 text-gray-700"
+                                    ? "bg-gray-700 text-gray-300"
+                                    : "bg-gray-200 text-gray-700"
                               }`}
                               onClick={() => setSkillFilter(filter)}
                               whileHover={{ scale: 1.05 }}
@@ -608,7 +608,7 @@ const About = () => {
                             >
                               {filter}
                             </motion.button>
-                          )
+                          ),
                         )}
                       </div>
                       {/* Skills Grid */}
@@ -650,8 +650,8 @@ const About = () => {
                                       i < Math.floor(skill.level / 20)
                                         ? "text-yellow-400"
                                         : darkMode
-                                        ? "text-gray-600"
-                                        : "text-gray-300"
+                                          ? "text-gray-600"
+                                          : "text-gray-300"
                                     }`}
                                     initial={{ scale: 0, opacity: 0 }}
                                     animate={{ scale: 1, opacity: 1 }}
@@ -743,7 +743,7 @@ const About = () => {
                               whileHover={{ y: -3 }}
                               onClick={() =>
                                 setExpandedItem(
-                                  expandedItem === index ? null : index
+                                  expandedItem === index ? null : index,
                                 )
                               }
                             >
